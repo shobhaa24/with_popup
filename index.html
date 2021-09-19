@@ -366,15 +366,17 @@
         <script id="MainScript">
 
 
-              var firebaseConfig = {
-                  apiKey: "AIzaSyAAb66XC1CRpqg9_o2MwsftBhHpvNslLQE",
-                  authDomain: "career-page-4cd49.firebaseapp.com",
-                  projectId: "career-page-4cd49",
-                  storageBucket: "career-page-4cd49.appspot.com",
-                  messagingSenderId: "1055151630569",
-                  appId: "1:1055151630569:web:10f8a1624f536171e3a878",
-                  measurementId: "G-T4HLVEY1FQ"
-              };
+              // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                apiKey: "AIzaSyBbf1RNksxd9Dmma1oNPnlGoRNKng-1wPw",
+                authDomain: "test-4a004.firebaseapp.com",
+                databaseURL: "https://test-4a004-default-rtdb.firebaseio.com",
+                projectId: "test-4a004",
+                storageBucket: "test-4a004.appspot.com",
+                messagingSenderId: "359600956572",
+                appId: "1:359600956572:web:6f5af0bb5511907109f959",
+                measurementId: "G-T879QC3BF9"
+                };
 
               firebase.initializeApp(firebaseConfig);
               firebase.analytics();
@@ -424,52 +426,39 @@
 
               document.getElementById("submitButton").onclick = function(){
                     Ready();
-                    firebase.database().ref('entry/'+Internship).set({
+                    var result = firebase.database().ref('entry/'+Internship).set({
                       NameOfApplicant: name,
                       EmailId: email,
                       Phone: PhoneNumber,
                       InternshipName: Internship,
                       ResumeCV: Resume
+                    }).then(function(res){
+                        document.getElementById('contactForm').reset();
+
+                        //display popup message
+                        var modal = document.getElementById("myModal");
+                        modal.style.display = "block";
+                        var span = document.getElementsByClassName("close")[0];
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                            modal.style.display = "none";
+                        }
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                            modal.style.display = "none";
+                            }
+                        }
+
+                    }).catch(function(err){
+                        console.log(err);
                     });
 
-                    document.getElementById('submitButton').reset();
-
-
-
+                    
               }
 
-              let btnClear = document.getElementById('submitButton');
-              let inputs = document.querySelectorAll('input');
-
-              btnClear.addEventListener('click', () => {
-                inputs.forEach(input => input.value = '');
-              })
-
-              //Get the modal
-              var modal = document.getElementById("myModal");
-
-              // Get the button that opens the modal
-              var btn = document.getElementById("submitButton");
-
-              // Get the <span> element that closes the modal
-              var span = document.getElementsByClassName("close")[0];
-
-              // When the user clicks the button, open the modal
-              btn.onclick = function() {
-                modal.style.display = "block";
-              }
-
-              // When the user clicks on <span> (x), close the modal
-              span.onclick = function() {
-                modal.style.display = "none";
-              }
-
-              // When the user clicks anywhere outside of the modal, close it
-              window.onclick = function(event) {
-                if (event.target == modal) {
-                  modal.style.display = "none";
-                }
-              }
+              
 
 
               </script>
